@@ -31,7 +31,7 @@ app.post('/login', async (req, res) => {
   username = name;
   registrationNumber = regNumber;
 
-  const response = await fetch('http://localhost:443/api/user-authenticator/login', {
+  const response = await fetch('http://localhost:3001/api/user-authenticator/login', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

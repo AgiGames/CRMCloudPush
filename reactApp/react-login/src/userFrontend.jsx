@@ -70,7 +70,7 @@ function UserDashboard() {
     formData.append('registrationNumberOfStudent', regNumber);
 
     try {
-      const response = await fetch('http://localhost:443/api/data-visualization/display-student-folder-from-admin', {
+      const response = await fetch('http://localhost:3001/api/data-visualization/display-student-folder-from-admin', {
         method: "POST",
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -121,7 +121,7 @@ function UserDashboard() {
       formData.append('fileContentAsString', base64String);
 
       try {
-        const response = await fetch('http://localhost:443/api/user-inputs/upload-to-directory', {
+        const response = await fetch('http://localhost:3001/api/user-inputs/upload-to-directory', {
           method: "POST",
           headers: {
             "Access-Control-Allow-Headers" : "Content-Type",
@@ -154,7 +154,7 @@ function UserDashboard() {
     formData.append('fileName', fileName);
 
     try {
-      const response = await fetch('http://localhost:443/api/user-inputs/get-file-from-directory', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/get-file-from-directory', {
         method: "POST",
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -194,7 +194,7 @@ function UserDashboard() {
     formData.append('fileName', fileName);
 
     try {
-      const response = await fetch('http://localhost:443/api/user-inputs/delete-file-from-directory', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/delete-file-from-directory', {
         method: "POST",
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",

@@ -61,7 +61,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://localhost:443/api/data-visualization/display-students', {
+      const response = await fetch('http://localhost:3001/api/data-visualization/display-students', {
         method: 'POST',
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -101,7 +101,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://localhost:443/api/data-visualization/display-student-folder-from-admin', {
+      const response = await fetch('http://localhost:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -142,7 +142,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://localhost:443/api/user-inputs/register-student', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/register-student', {
         method: 'POST',
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -184,7 +184,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://localhost:443/api/user-inputs/remove-student', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/remove-student', {
         method: 'POST',
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",
@@ -219,7 +219,7 @@ function AdminDashboard() {
     formData.append('fileName', fileName);
 
     try {
-      const response = await fetch('http://localhost:443/api/user-inputs/get-file-from-directory', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
         headers: {
           "Access-Control-Allow-Headers" : "Content-Type",

@@ -4,7 +4,7 @@ async function getUsername(regNumber) {
     formData.append('registrationNumber', regNumber);
 
     try {
-        const response = await fetch('http://localhost:443/api/user-authenticator/get-username', {
+        const response = await fetch('http://localhost:3001/api/user-authenticator/get-username', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
