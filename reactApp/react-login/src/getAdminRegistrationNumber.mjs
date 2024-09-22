@@ -4,10 +4,13 @@ async function getAdminRegistrationNumber(regNumber) {
     formData.append('registrationNumber', regNumber);
 
     try {
-        const response = await fetch('http://localhost:8080/api/user-authenticator/get-admin-registration-number', {
+        const response = await fetch('http://localhost:443/api/user-authenticator/get-admin-registration-number', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/x-www-form-urlencoded',
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "https://www.example.com",
+                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
             },
             body: formData.toString()
         });
