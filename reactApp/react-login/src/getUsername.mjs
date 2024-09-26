@@ -8,11 +8,8 @@ async function getUsername(regNumber) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                "Access-Control-Allow-Headers" : "Content-Type",
-                "Access-Control-Allow-Origin": "https://www.example.com",
-                "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
             },
-            body: formData.toString()
+            body: new URLSearchParams(formData).toString()
         });
 
         if (response.ok) {

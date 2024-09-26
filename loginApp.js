@@ -1,8 +1,16 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -35,9 +43,6 @@ app.post('/login', async (req, res) => {
       method: 'POST',
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
       },
       body: formData.toString()
   });

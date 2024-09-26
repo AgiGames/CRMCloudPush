@@ -64,11 +64,9 @@ function AdminDashboard() {
       const response = await fetch('http://localhost:3001/api/data-visualization/display-students', {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: new URLSearchParams(formData).toString(),
       });
 
       if (response.ok) {
@@ -104,11 +102,9 @@ function AdminDashboard() {
       const response = await fetch('http://localhost:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: new URLSearchParams(formData).toString(),
       });
 
       if (response.ok) {
@@ -145,11 +141,9 @@ function AdminDashboard() {
       const response = await fetch('http://localhost:3001/api/user-inputs/register-student', {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: new URLSearchParams(formData).toString(),
       });
 
       if (response.ok) {
@@ -187,11 +181,9 @@ function AdminDashboard() {
       const response = await fetch('http://localhost:3001/api/user-inputs/remove-student', {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: new URLSearchParams(formData).toString(),
       });
 
       if (response.ok) {
@@ -222,11 +214,9 @@ function AdminDashboard() {
       const response = await fetch('http://localhost:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
         headers: {
-          "Access-Control-Allow-Headers" : "Content-Type",
-          "Access-Control-Allow-Origin": "https://www.example.com",
-          "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: formData,
+        body: new URLSearchParams(formData).toString(),
       });
 
       if (response.ok) {
