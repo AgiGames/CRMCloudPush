@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { useRegNumber } from './regNumberContext';
-import getAdminUsername from './getAdminName.mjs';
-import getAdminRegistrationNumber from './getAdminRegistrationNumber.mjs';
 import getUsername from './getUsername.mjs';
 
 // Inline styles (optional, for quick styling)
@@ -44,7 +42,7 @@ const styles = {
 
 // Functional Component
 function AdminDashboard() {
-  const { regNumber } = useRegNumber();
+  const { regNumber } = useRegNumber(); // Ensure regNumber context is properly accessed
   const [studentFolders, setStudentFolders] = useState([]);
   const [showPanel, setShowPanel] = useState(false);
   const [showDirectoryForm, setShowDirectoryForm] = useState(false);
@@ -54,19 +52,29 @@ function AdminDashboard() {
   const [studentRegNumber, setStudentRegNumber] = useState('');
   const [password, setPassword] = useState('');
 
+  // Function to fetch the admin username
+  const getAdminUsername = async () => {
+    try {
+      const adminUsername = await getUsername(regNumber);
+      return adminUsername;
+    } catch (error) {
+      console.error('Error fetching admin username:', error);
+      return '';
+    }
+  };
+
   // View Students and fetch directory names
   const handleViewStudents = async () => {
+    const adminName = await getAdminUsername(); // Use async properly
+
     const formData = new FormData();
-    formData.append('adminName', await getUsername(regNumber));
+    formData.append('adminName', adminName);
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
       const response = await fetch('http://localhost:3001/api/data-visualization/display-students', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -92,19 +100,18 @@ function AdminDashboard() {
 
   // Fetch student directory
   const handleSubmitViewDirectory = async () => {
+    const adminName = await getAdminUsername(); // Use async properly
+
     const formData = new FormData();
     formData.append('nameOfStudent', studentName);
     formData.append('registrationNumberOfStudent', studentRegNumber);
-    formData.append('adminName', await getUsername(regNumber));
+    formData.append('adminName', adminName);
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
       const response = await fetch('http://localhost:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -130,20 +137,19 @@ function AdminDashboard() {
   };
 
   const handleSubmitRegistration = async () => {
+    const adminName = await getAdminUsername(); // Use async properly
+
     const formData = new FormData();
     formData.append('nameOfStudent', studentName);
     formData.append('registrationNumberOfStudent', studentRegNumber);
     formData.append('password', password);
-    formData.append('adminName', await getUsername(regNumber));
+    formData.append('adminName', adminName);
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
       const response = await fetch('http://localhost:3001/api/user-inputs/register-student', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -171,19 +177,18 @@ function AdminDashboard() {
   };
 
   const handleSubmitRemoval = async () => {
+    const adminName = await getAdminUsername(); // Use async properly
+
     const formData = new FormData();
     formData.append('nameOfStudent', studentName);
     formData.append('registrationNumberOfStudent', studentRegNumber);
-    formData.append('adminName', await getUsername(regNumber));
+    formData.append('adminName', adminName);
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
       const response = await fetch('http://localhost:3001/api/user-inputs/remove-student', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -203,20 +208,19 @@ function AdminDashboard() {
 
   // Handle file download
   const handleFileClick = async (fileName) => {
+    const adminName = await getAdminUsername(); // Use async properly
+
     const formData = new FormData();
     formData.append('nameOfStudent', studentName);
     formData.append('registrationNumberOfStudent', studentRegNumber);
-    formData.append('adminName', await getUsername(regNumber));
+    formData.append('adminName', adminName);
     formData.append('adminRegistrationNumber', regNumber);
     formData.append('fileName', fileName);
 
     try {
       const response = await fetch('http://localhost:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: new URLSearchParams(formData).toString(),
+        body: formData,
       });
 
       if (response.ok) {
@@ -283,27 +287,9 @@ function AdminDashboard() {
         </div>
       )}
 
-      {showPanel && (
-        <div style={styles.panel}>
-          <h2>Files in {studentName}-{studentRegNumber}'s Directory:</h2>
-          <ul>
-            {studentFolders.map((fileName, index) => (
-              <li key={index}>
-                <button
-                  style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer' }}
-                  onClick={() => handleFileClick(fileName)}
-                >
-                  {fileName}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
       {showRegistrationForm && (
         <div style={styles.panel}>
-          <h2>Register Student</h2>
+          <h2>Register New Student</h2>
           <input
             style={styles.input}
             type="text"
@@ -351,6 +337,24 @@ function AdminDashboard() {
           <button style={styles.button} onClick={handleSubmitRemoval}>
             Remove Student
           </button>
+        </div>
+      )}
+
+      {showPanel && (
+        <div style={styles.panel}>
+          <h2>Files in {studentName}-{studentRegNumber}'s Directory:</h2>
+          <ul>
+            {studentFolders.map((fileName, index) => (
+              <li key={index}>
+                <button
+                  style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer' }}
+                  onClick={() => handleFileClick(fileName)}
+                >
+                  {fileName}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
