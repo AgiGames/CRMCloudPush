@@ -4,7 +4,7 @@ async function getUsername(regNumber) {
     formData.append('registrationNumber', regNumber);
   
     try {
-      const response = await fetch('http://localhost:3001/api/user-authenticator/get-username', {
+      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-authenticator/get-username', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
