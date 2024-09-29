@@ -71,7 +71,7 @@ function UserDashboard() {
       formData.append('nameOfStudent', await getUsername(regNumber));
       formData.append('registrationNumberOfStudent', regNumber);
 
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/data-visualization/display-student-folder-from-admin', {
+      const response = await fetch('http://34.238.85.84:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
         body: formData,
       });
@@ -117,7 +117,7 @@ function UserDashboard() {
         formData.append('fileName', file.name);
         formData.append('fileContentAsString', base64String);
 
-        const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/upload-to-directory', {
+        const response = await fetch('http://34.238.85.84:3001/api/user-inputs/upload-to-directory', {
           method: 'POST',
           body: formData,
         });
@@ -146,7 +146,7 @@ function UserDashboard() {
       formData.append('adminRegistrationNumber', await getAdminRegistrationNumber(regNumber));
       formData.append('fileName', fileName);
 
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/get-file-from-directory', {
+      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
         body: formData,
       });
@@ -181,7 +181,7 @@ function UserDashboard() {
       formData.append('adminRegistrationNumber', await getAdminRegistrationNumber(regNumber));
       formData.append('fileName', fileName);
 
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/delete-file-from-directory', {
+      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/delete-file-from-directory', {
         method: 'POST',
         body: formData,
       });

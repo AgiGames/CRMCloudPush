@@ -72,7 +72,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/data-visualization/display-students', {
+      const response = await fetch('http://34.238.85.84:3001/api/data-visualization/display-students', {
         method: 'POST',
         body: formData,
       });
@@ -109,7 +109,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/data-visualization/display-student-folder-from-admin', {
+      const response = await fetch('http://34.238.85.84:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
         body: formData,
       });
@@ -147,7 +147,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/register-student', {
+      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/register-student', {
         method: 'POST',
         body: formData,
       });
@@ -186,7 +186,7 @@ function AdminDashboard() {
     formData.append('adminRegistrationNumber', regNumber);
 
     try {
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/remove-student', {
+      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/remove-student', {
         method: 'POST',
         body: formData,
       });
@@ -218,7 +218,7 @@ function AdminDashboard() {
     formData.append('fileName', fileName);
 
     try {
-      const response = await fetch('http://ec2-34-238-85-84.compute-1.amazonaws.com:3001/api/user-inputs/get-file-from-directory', {
+      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
         body: formData,
       });
