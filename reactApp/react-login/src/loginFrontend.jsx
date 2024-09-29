@@ -30,6 +30,7 @@ function LoginPage() {
 
   // Handle form submission
   const handleSubmit = async (e) => {
+    console.log(regNumber);
     e.preventDefault();
 
     try {
