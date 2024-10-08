@@ -12,8 +12,8 @@ CRMCloudPush integrates cloud services to streamline CRM operations. It features
 
 ## Technologies Used
 - **Front-End**: React, HTML, CSS
-- **Back-End**: Node.js, Express
-- **Cloud**: AWS (S3, Lambda, API Gateway)
+- **Back-End**: Node.js, SpringBoot
+- **Cloud**: AWS (EC2)
 
 ## Setup Instructions
 
