@@ -16,16 +16,25 @@ CRMCloudPush integrates cloud services to streamline CRM operations. It features
 - **Cloud**: AWS (S3, Lambda, API Gateway)
 
 ## Setup Instructions
-1. Clone the repository:
+
+1. **Install Java 21 Amazon Corretto**:  
+   Run the following command to install Java:
    ```bash
-   git clone https://github.com/madddx/CRMCloudPush.git
+   sudo yum install java-21-amazon-corretto-devel
    ```
-2. Navigate to the front-end directory and install dependencies:
+
+2. **Install Spring Boot**:  
+   Set up Spring Boot using your preferred method (e.g., via SDKMAN or directly downloading the package).
+
+3. **Install React**:  
+   Navigate to the React project directory and install dependencies:
    ```bash
    cd reactApp
    npm install
    ```
-3. Start the server:
+
+4. **Start the Server**:  
+   Run the following command to start the Node.js server:
    ```bash
    node server.js
    ```
