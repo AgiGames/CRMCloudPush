@@ -1,4 +1,4 @@
-# CRMCloudPush
+# APPCRM
 
 This repository contains the front-end and back-end server for a CRM (Customer Relationship Management) application hosted on AWS.
 
