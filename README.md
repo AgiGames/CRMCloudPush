@@ -33,7 +33,7 @@ CRMCloudPush integrates cloud services to streamline CRM operations. It features
 ## Screenshots
 
 ### AWS Linux Terminal
-![AWS Linux Terminal](AWS%20Linux%20Terminal.png)
+![AWS Linux Terminal](https://github.com/madddx/CRMCloudPush/blob/bc0a0eb99a92ccab2dc9bada30bd97ba2239453c/AWS%20Linus%20Terminal.png)
 
 ### Admin Dashboard
 ![Admin Dashboard](Admin%20Dashboard.png)
