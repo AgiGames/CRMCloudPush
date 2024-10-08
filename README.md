@@ -22,23 +22,29 @@ CRMCloudPush integrates cloud services to streamline CRM operations. It features
    ```bash
    sudo yum install java-21-amazon-corretto-devel
    ```
-
-2. **Install Spring Boot**:  
-   Set up Spring Boot using your preferred method (e.g., via SDKMAN or directly downloading the package).
-
-3. **Install React**:  
+   
+2. **Install React**:  
    Navigate to the React project directory and install dependencies:
    ```bash
-   cd reactApp
+   cd reactApp/react-login
    npm install
    ```
+   
+3. **Install Node**: 
+   curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+   sudo yum install -y nodejs
 
-4. **Start the Server**:  
+4. **Start the frontend Server**:  
    Run the following command to start the Node.js server:
    ```bash
-   node server.js
+   node loginApp.js
    ```
-
+   
+5. **Start the backend Server**:  
+   Run the following command to start the spring-boot server:
+   ```bash
+   java -jar demo-0.0.1-SNAPSHOT.jar
+   ```
 ## Screenshots
 
 ### AWS Linux Terminal
