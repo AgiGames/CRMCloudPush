@@ -30,9 +30,11 @@ CRMCloudPush integrates cloud services to streamline CRM operations. It features
    npm install
    ```
    
-3. **Install Node**: 
+3. **Install Node**:
+   ```bash
    curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
    sudo yum install -y nodejs
+   ```
 
 4. **Start the frontend Server**:  
    Run the following command to start the Node.js server:
