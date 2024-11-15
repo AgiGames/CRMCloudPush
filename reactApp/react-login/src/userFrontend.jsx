@@ -11,42 +11,63 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e0f7ff',
+    transition: 'background-color 0.5s ease',
   },
   button: {
     padding: '10px 20px',
     margin: '10px',
-    backgroundColor: '#007bff',
+    backgroundColor: '#0077cc',
     color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
+    border: '2px solid #d4af37',
+    borderRadius: '8px',
     cursor: 'pointer',
     fontSize: '16px',
+    transition: 'all 0.3s ease',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+  },
+  buttonHover: {
+    backgroundColor: '#d4af37',
+    color: '#fff',
   },
   header: {
-    fontSize: '24px',
+    fontSize: '28px',
+    color: '#0077cc',
     marginBottom: '20px',
+    fontWeight: 'bold',
+    textShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'color 0.3s ease',
   },
-  fileContainer: {
+  panel: {
     marginTop: '20px',
     border: '1px solid #ccc',
+    padding: '15px',
+    width: '80%',
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+    transition: 'opacity 0.5s ease',
+  },
+  input: {
     padding: '10px',
-  },
-  fileItem: {
-    marginBottom: '10px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  deleteButton: {
-    marginTop: '5px',
-    padding: '5px 10px',
-    backgroundColor: '#dc3545',
-    color: '#fff',
-    border: 'none',
+    margin: '5px',
+    fontSize: '16px',
+    width: '200px',
+    border: '2px solid #0077cc',
     borderRadius: '5px',
+    transition: 'border-color 0.3s ease',
+  },
+  listItemButton: {
+    background: 'none',
+    border: 'none',
+    color: '#0077cc',
     cursor: 'pointer',
-    fontSize: '14px',
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    transition: 'color 0.3s ease',
+  },
+  listItemButtonHover: {
+    color: '#d4af37',
   },
 };
 
@@ -57,12 +78,14 @@ function UserDashboard() {
   const [fileNames, setFileNames] = useState([]);
   const [showPanel, setShowPanel] = useState(false);
 
-  // Handle file selection
+  // Separate hover states for each button
+  const [uploadButtonHover, setUploadButtonHover] = useState(false);
+  const [viewButtonHover, setViewButtonHover] = useState(false);
+
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  // View files in the user's directory
   const handleViewDirectory = async () => {
     try {
       const formData = new FormData();
@@ -71,7 +94,7 @@ function UserDashboard() {
       formData.append('nameOfStudent', await getUsername(regNumber));
       formData.append('registrationNumberOfStudent', regNumber);
 
-      const response = await fetch('http://34.238.85.84:3001/api/data-visualization/display-student-folder-from-admin', {
+      const response = await fetch('http://localhost:3001/api/data-visualization/display-student-folder-from-admin', {
         method: 'POST',
         body: formData,
       });
@@ -89,7 +112,6 @@ function UserDashboard() {
     }
   };
 
-  // Upload file to user's directory
   const handleUploadToDirectory = async (event) => {
     event.preventDefault();
 
@@ -107,7 +129,7 @@ function UserDashboard() {
 
       const reader = new FileReader();
       reader.onloadend = async () => {
-        const base64String = reader.result.split(',')[1]; // Get base64 string without the prefix
+        const base64String = reader.result.split(',')[1]; 
 
         const formData = new FormData();
         formData.append('nameOfStudent', username);
@@ -117,14 +139,14 @@ function UserDashboard() {
         formData.append('fileName', file.name);
         formData.append('fileContentAsString', base64String);
 
-        const response = await fetch('http://34.238.85.84:3001/api/user-inputs/upload-to-directory', {
+        const response = await fetch('http://localhost:3001/api/user-inputs/upload-to-directory', {
           method: 'POST',
           body: formData,
         });
 
         if (response.ok) {
           alert('File uploaded successfully');
-          handleViewDirectory(); // Refresh the directory view after uploading
+          handleViewDirectory();
         } else {
           alert('Failed to upload file');
         }
@@ -136,7 +158,6 @@ function UserDashboard() {
     }
   };
 
-  // Download file from directory
   const handleFileClick = async (fileName) => {
     try {
       const formData = new FormData();
@@ -146,7 +167,7 @@ function UserDashboard() {
       formData.append('adminRegistrationNumber', await getAdminRegistrationNumber(regNumber));
       formData.append('fileName', fileName);
 
-      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/get-file-from-directory', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/get-file-from-directory', {
         method: 'POST',
         body: formData,
       });
@@ -171,7 +192,6 @@ function UserDashboard() {
     }
   };
 
-  // Delete file from directory
   const handleDeleteFile = async (fileName) => {
     try {
       const formData = new FormData();
@@ -181,7 +201,7 @@ function UserDashboard() {
       formData.append('adminRegistrationNumber', await getAdminRegistrationNumber(regNumber));
       formData.append('fileName', fileName);
 
-      const response = await fetch('http://34.238.85.84:3001/api/user-inputs/delete-file-from-directory', {
+      const response = await fetch('http://localhost:3001/api/user-inputs/delete-file-from-directory', {
         method: 'POST',
         body: formData,
       });
@@ -203,26 +223,36 @@ function UserDashboard() {
       <h1 style={styles.header}>User Dashboard</h1>
 
       <div>
-        {/* File input and upload button */}
         <input type="file" onChange={handleFileChange} />
-        <button style={styles.button} onClick={handleUploadToDirectory}>
+        
+        {/* Upload button with individual hover handling */}
+        <button
+          style={uploadButtonHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+          onMouseEnter={() => setUploadButtonHover(true)}
+          onMouseLeave={() => setUploadButtonHover(false)}
+          onClick={handleUploadToDirectory}
+        >
           Upload to Directory
         </button>
 
-        {/* View directory button */}
-        <button style={styles.button} onClick={handleViewDirectory}>
+        {/* View directory button with individual hover handling */}
+        <button
+          style={viewButtonHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+          onMouseEnter={() => setViewButtonHover(true)}
+          onMouseLeave={() => setViewButtonHover(false)}
+          onClick={handleViewDirectory}
+        >
           View Your Directory
         </button>
 
-        {/* Display file names in the directory */}
         {showPanel && (
-          <div style={styles.fileContainer}>
+          <div style={styles.panel}>
             <h2>Files in Student Folder:</h2>
             <ul>
               {fileNames.map((fileName, index) => (
                 <li key={index} style={styles.fileItem}>
                   <button
-                    style={{ background: 'none', border: 'none', color: '#007bff', cursor: 'pointer' }}
+                    style={styles.listItemButton}
                     onClick={() => handleFileClick(fileName)}
                   >
                     {fileName}
@@ -243,4 +273,4 @@ function UserDashboard() {
   );
 }
 
-export default UserDashboard;
+export default UserDashboard;
