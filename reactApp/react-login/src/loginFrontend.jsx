@@ -3,23 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useRegNumber } from './regNumberContext';
 
 function LoginPage() {
-  // Access regNumber and setRegNumber from context
   const { regNumber, setRegNumber } = useRegNumber();
-
-  // State to store form inputs
   const [formData, setFormData] = useState({
     name: '',
     regNumber: '',
     password: ''
   });
-
-  // State to store error messages
   const [error, setError] = useState('');
-
-  // Get the navigate function from react-router-dom
   const navigate = useNavigate();
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -28,11 +21,8 @@ function LoginPage() {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    console.log(regNumber);
     e.preventDefault();
-
     try {
       const response = await fetch('/login', {
         method: 'POST',
@@ -45,9 +35,7 @@ function LoginPage() {
       const data = await response.json();
 
       if (data.status === 'success') {
-        // Set regNumber in context
         setRegNumber(formData.regNumber);
-        // Redirect based on the server's response
         navigate(data.redirectUrl);
       } else {
         setError(data.message || 'Login failed');
@@ -56,14 +44,12 @@ function LoginPage() {
       console.error('Error:', error);
       setError('Unexpected Error');
     }
-
-    console.log('Form Data:', formData);
   };
 
   return (
     <div style={styles.container}>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <h2 style={styles.header}>Login</h2>
+      <h2 style={styles.header}>Login</h2>
+      <form onSubmit={handleSubmit} style={styles.panel}>
         {error && <div style={styles.error}>{error}</div>}
         <div style={styles.formGroup}>
           <label style={styles.label}>Name</label>
@@ -98,59 +84,92 @@ function LoginPage() {
             style={styles.input}
           />
         </div>
-        <button type="submit" style={styles.button}>Login</button>
+        <button
+          type="submit"
+          style={{
+            ...styles.button,
+            ...(isButtonHovered ? styles.buttonHover : {})
+          }}
+          onMouseEnter={() => setIsButtonHovered(true)}
+          onMouseLeave={() => setIsButtonHovered(false)}
+        >
+          Login
+        </button>
       </form>
     </div>
   );
 }
 
-// Basic inline styles
+// Updated styles
 const styles = {
   container: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f0f0f0'
-  },
-  form: {
-    backgroundColor: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
-    width: '300px'
+    backgroundColor: '#e0f7ff',
+    transition: 'background-color 0.5s ease',
   },
   header: {
-    textAlign: 'center',
-    marginBottom: '20px'
+    fontSize: '28px',
+    color: '#0077cc',
+    marginBottom: '20px',
+    fontWeight: 'bold',
+    textShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
+    transition: 'color 0.3s ease',
+  },
+  panel: {
+    marginTop: '20px',
+    border: '1px solid #ccc',
+    padding: '20px',
+    width: '320px', // Adjusted width to match input field width
+    backgroundColor: '#fff',
+    borderRadius: '8px',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+    transition: 'opacity 0.5s ease',
   },
   formGroup: {
-    marginBottom: '15px'
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: '15px',
+    width: '100%',
   },
   label: {
-    display: 'block',
-    marginBottom: '5px'
+    marginBottom: '5px',
+    fontSize: '14px',
+    color: '#333',
   },
   input: {
-    width: '100%',
-    padding: '8px',
-    borderRadius: '4px',
-    border: '1px solid #ccc'
+    padding: '10px',
+    fontSize: '16px',
+    width: '100%', // Ensures input takes up full width of form group
+    boxSizing: 'border-box', // Prevents overflow due to padding
+    border: '2px solid #0077cc',
+    borderRadius: '5px',
+    transition: 'border-color 0.3s ease',
   },
   button: {
-    width: '100%',
-    padding: '10px',
-    backgroundColor: '#007bff',
+    padding: '10px 20px',
+    backgroundColor: '#0077cc',
     color: '#fff',
-    borderRadius: '4px',
-    border: 'none',
-    cursor: 'pointer'
+    border: '2px solid #d4af37',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '16px',
+    width: '100%', // Ensures the button spans the width of the panel
+    transition: 'all 0.3s ease',
+    boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+  },
+  buttonHover: {
+    backgroundColor: '#d4af37',
+    color: '#fff',
   },
   error: {
     color: 'red',
-    marginBottom: '15px',
-    textAlign: 'center'
-  }
+    fontSize: '14px',
+    marginBottom: '10px',
+  },
 };
 
 export default LoginPage;
