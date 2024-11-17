@@ -4,7 +4,7 @@ async function getAdminUsername(regNumber) {
     formData.append('registrationNumber', regNumber);
   
     try {
-      const response = await fetch('http://34.238.85.84:3001/api/user-authenticator/get-admin-name', {
+      const response = await fetch('http://localhost:3001/api/user-authenticator/get-admin-name', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

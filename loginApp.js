@@ -51,7 +51,8 @@ app.post('/login', async (req, res) => {
   console.log(data);
 
   if (data == 0) {
-    res.json({ status: 'error', message: 'Bad Credentials' });
+    // Redirect to login page if credentials are wrong
+    res.redirect('/login');
   } else if (data == 1) {
     res.json({ status: 'success', redirectUrl: '/user' });
   } else {
